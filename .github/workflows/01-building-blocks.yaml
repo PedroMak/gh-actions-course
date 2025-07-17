@@ -1,6 +1,8 @@
 name: 01 - Building BLocks
 
-on: workflow_dispatch
+on:
+  #push 
+  workflow_dispatch
     
 jobs:
   echo-hello:
