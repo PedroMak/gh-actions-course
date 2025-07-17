@@ -1,13 +1,13 @@
 name: 05 - 1 - Event Filters and Activity
 
 on:
-  pull_request: 
-    types: 
-      - opened
-      - synchronize
-    branches:
-      - main
-
+  #pull_request: 
+  #  types: 
+  #    - opened
+  #    - synchronize
+  #  branches:
+  #    - main
+  workflow_dispatch
 jobs:
   echo:
     runs-on: ubuntu-latest
