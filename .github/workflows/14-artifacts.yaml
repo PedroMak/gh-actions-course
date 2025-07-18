@@ -1,4 +1,4 @@
-name: Working with Artifacts
+name: 14 - Working with Artifacts
 
 on:
   workflow_dispatch:
@@ -38,6 +38,7 @@ jobs:
         
   deploy:
     runs-on: ubuntu-latest
+    needs: test-build
     steps:
       - name: Download Build Artifact
         uses: actions/download-artifact@v4
