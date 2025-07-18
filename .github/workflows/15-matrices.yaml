@@ -8,16 +8,29 @@ jobs:
     runs-on: ubuntu-latest
     name: ${{ matrix.os }}-${{ matrix.node }}
     strategy:
+      fail-fast: false
       matrix:
         node: ['18.x', '20.x', '21.x']
         os:
           - ubuntu-latest
           - windows-latest
+        include:
+          - os: ubuntu-latest
+            tag: linux
+          - os: ubuntu-latest
+            node-version: 21.x
     steps:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+      - name: Fail if experimental
+        if: ${{ matrix.tag == 'experimental' }}
+        run: exit 1
       - name: Perform some tests
         run: |
           echo "Running tests on ${{ matrix.os }} and Node JS ${{ matrix.node }}"
+          sleep 10
+      - name: Upload test results
+        run: |
+          echo "Uploading test results"
