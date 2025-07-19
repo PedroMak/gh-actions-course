@@ -5,31 +5,32 @@ on:
 
 jobs:
   backwards-compatibility:
-    runs-on: ubuntu-latest
-    name: ${{ matrix.os }}-${{ matrix.node }}
+    name: ${{ matrix.os }}-${{ matrix.node-version }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
       matrix:
-        node: ['18.x', '20.x']
+        node-version: [18.x, 20.x, 21.x]
         os:
           - ubuntu-latest
           - windows-latest
         include:
           - os: ubuntu-latest
+            node-version: 21.x
             tag: linux
           - os: ubuntu-latest
-            node-version: 21.x
+            node-version: 16.x
     steps:
       - name: Setup node
         uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
+        with: 
+          node-version: ${{ matrix.node-version }}
       - name: Fail if experimental
         if: ${{ matrix.tag == 'experimental' }}
         run: exit 1
       - name: Perform some tests
         run: |
-          echo "Running tests on ${{ matrix.os }} and Node JS ${{ matrix.node }}"
+          echo "Running tests on ${{ matrix.os }} and Node JS ${{ matrix.node-version }}"
           sleep 10
       - name: Upload test results
         run: |
