@@ -5,7 +5,19 @@ on:
     inputs:
       url:
         description: URL
-        default: 'https://google.com'
+        type: choice
+        options:
+          - 'https://google.com'
+          - 'https://fdlkçhsfdks.com'
+          - 'aaaaaaaaaaaaaa'
+      max_trials:
+        description: Max Trials
+        default: '10'
+        required: false
+      delay:
+        description: Delay
+        default: '5'
+        required: false
 
 jobs:
   ping-url:
@@ -16,3 +28,5 @@ jobs:
         uses: ./.github/actions/docker-ping-url
         with:
           url: ${{ inputs.url }}
+          max_trials: ${{ inputs.max_trials }}
+          delay: ${{ inputs.delay }}
